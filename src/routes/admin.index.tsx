@@ -1,0 +1,315 @@
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
+import { AlertTriangle, ArrowDownLeft, ArrowUpRight, Check, Layers, ScrollText, Upload, Users, Wallet } from "lucide-react";
+import { AUDIT_ICON } from "@/components/khazna/audit-meta";
+import { useMemo } from "react";
+import { Btn } from "@/components/khazna/btn";
+import { ExpiryWarningBanner } from "@/components/khazna/ExpiryWarningBanner";
+import { SectorTile } from "@/components/khazna/SectorTile";
+import { Avatar, Chip, CountUp, GlassCard, PageHeader, ProgressRing, StatCard } from "@/components/khazna/primitives";
+import { tileVar } from "@/components/khazna/sector-meta";
+import { formatCompactINR, formatINR, timeAgo } from "@/lib/khazna/format";
+import { totals } from "@/lib/khazna/ledger";
+import { inLastDays, pendingDues } from "@/lib/khazna/selectors";
+import { useKhazna } from "@/lib/khazna/store";
+import { reveal } from "@/components/khazna/motion";
+
+export const Route = createFileRoute("/admin/")({
+  head: () => ({
+    meta: [
+      { title: "Admin Dashboard — Khazna" },
+      { name: "description", content: "College-wide balances, collections and sector activity for your college." },
+      { property: "og:title", content: "Admin Dashboard — Khazna" },
+      { property: "og:description", content: "College-wide balances, collections and sector activity." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: AdminDashboard,
+});
+
+
+function AdminDashboard() {
+  const txs = useKhazna((s) => s.transactions);
+  const sectors = useKhazna((s) => s.sectors);
+  const students = useKhazna((s) => s.students);
+  const audit = useKhazna((s) => s.audit);
+  const college = useKhazna((s) => s.college);
+  const classes = useKhazna((s) => s.classes);
+  const managers = useKhazna((s) => s.managers);
+  const sectorList = useKhazna((s) => s.sectors);
+  const pendingInvite = managers.find((m) => m.status === "invited");
+  const setup = [
+    { done: sectorList.length > 0, title: "Add your sectors", body: "Office, unions, welfare wings, departments…", to: "/admin/sectors" as const, cta: "Add sectors" },
+    { done: managers.length > 0, title: "Add sector managers", body: "One by one, or bulk upload with a template.", to: "/admin/admins" as const, cta: "Add managers" },
+    { done: students.length > 0, title: "Upload students", body: "Admission number, name, class and phone (optional).", to: "/admin/students/import" as const, cta: "Upload students" },
+  ];
+  const setupLeft = setup.filter((x) => !x.done).length;
+
+  const stats = useMemo(() => {
+    const all = totals(txs);
+    const month = txs.filter((t) => inLastDays(t, 30));
+    const m = totals(month);
+    const dues = pendingDues(txs);
+    const target = sectors.reduce((a, s) => a + s.target, 0);
+    const perSector = sectors.map((s) => ({ sector: s, t: totals(txs, { sector: s.slug }), active: new Set(txs.filter((x) => x.sector === s.slug).map((x) => x.studentId)).size }));
+    return { all, m, dues, target, perSector, monthCount: month.length };
+  }, [txs, sectors]);
+
+  const progress = stats.target > 0 ? stats.all.credit / stats.target : 0;
+
+  return (
+    <div>
+      <PageHeader
+        eyebrow="Admin · Dashboard"
+        title={
+          <>
+            Welcome back, <span className="text-gradient-primary">{college.adminName.split(" ")[0]}</span>
+          </>
+        }
+        description={`Here's how money is moving across every sector of ${college.name} this term.`}
+        actions={
+          <>
+            <Btn asChild variant="glass">
+              <Link to="/admin/audit" data-ai-id="admin-dash-audit-link">
+                <ScrollText /> Audit log
+              </Link>
+            </Btn>
+            <Btn asChild variant="primary">
+              <Link to="/admin/students/import" data-ai-id="admin-dash-import-link">
+                <Upload /> Import students
+              </Link>
+            </Btn>
+          </>
+        }
+      />
+
+      <ExpiryWarningBanner />
+
+      {/* Mobile Quick Action Squircles (inspired by responsive in mobile design) */}
+      <div className="mb-5 grid grid-cols-4 gap-2.5 sm:hidden">
+        <Link to="/admin/students/import" data-ai-id="admin-mobile-import-link" className="group flex flex-col items-center gap-1.5 text-center">
+          <motion.div
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.9 }}
+            className="grid size-12 place-items-center rounded-2xl border border-orange-500/30 bg-gradient-to-br from-amber-500/20 via-orange-500/20 to-rose-500/10 text-orange-600 shadow-sm dark:text-orange-400"
+          >
+            <Upload className="size-5" />
+          </motion.div>
+          <span className="text-[11px] font-medium text-foreground">Import</span>
+        </Link>
+        <Link to="/admin/students" data-ai-id="admin-mobile-students-link" className="group flex flex-col items-center gap-1.5 text-center">
+          <motion.div
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.9 }}
+            className="grid size-12 place-items-center rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/20 via-teal-500/20 to-emerald-500/10 text-cyan-600 shadow-sm dark:text-cyan-400"
+          >
+            <Users className="size-5" />
+          </motion.div>
+          <span className="text-[11px] font-medium text-foreground">Students</span>
+        </Link>
+        <Link to="/admin/sectors" data-ai-id="admin-mobile-sectors-link" className="group flex flex-col items-center gap-1.5 text-center">
+          <motion.div
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.9 }}
+            className="grid size-12 place-items-center rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-500/20 via-indigo-500/20 to-violet-500/10 text-purple-600 shadow-sm dark:text-purple-400"
+          >
+            <Layers className="size-5" />
+          </motion.div>
+          <span className="text-[11px] font-medium text-foreground">Sectors</span>
+        </Link>
+        <Link to="/admin/audit" data-ai-id="admin-mobile-audit-link" className="group flex flex-col items-center gap-1.5 text-center">
+          <motion.div
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.9 }}
+            className="grid size-12 place-items-center rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/20 via-teal-500/20 to-green-500/10 text-emerald-600 shadow-sm dark:text-emerald-400"
+          >
+            <ScrollText className="size-5" />
+          </motion.div>
+          <span className="text-[11px] font-medium text-foreground">Audit</span>
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 w-full">
+        <StatCard label="Total balance held" icon={Wallet} value={<CountUp value={stats.all.balance} />} hint={<>Across {sectors.length} sectors</>} />
+        <StatCard
+          label="Collected · 30 days"
+          icon={ArrowDownLeft}
+          tone="credit"
+          delay={0.05}
+          value={<CountUp value={stats.m.credit} />}
+          hint={<span className="num">{stats.monthCount} entries posted</span>}
+        />
+        <StatCard label="Students" icon={Users} tone="info" delay={0.1} value={<CountUp value={students.length} format={(n) => Math.round(n).toString()} />} hint={`Active across ${classes.length} class${classes.length === 1 ? "" : "es"}`} />
+        <StatCard
+          label="Pending dues"
+          icon={AlertTriangle}
+          tone="debit"
+          delay={0.15}
+          value={<CountUp value={stats.dues.amount} />}
+          hint={<span className="num">{stats.dues.count} student ledgers in the red</span>}
+        />
+      </div>
+
+      {setupLeft > 0 && (
+        <GlassCard className="mt-8 p-4 sm:p-6 w-full">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">Set up {college.name}</h2>
+              <p className="text-sm text-muted-foreground">
+                {setupLeft} step{setupLeft === 1 ? "" : "s"} left before managers can post entries and students can sign in.
+              </p>
+            </div>
+            <Chip tone="primary">
+              {3 - setupLeft}/3 done
+            </Chip>
+          </div>
+          <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-3 w-full">
+            {setup.map((x, i) => (
+              <motion.div key={x.title} {...reveal(i)} className={`glass-inset flex flex-col gap-3 p-4 ${x.done ? "opacity-70" : ""}`}>
+                <div className="flex items-center gap-3">
+                  <span className={`grid size-8 shrink-0 place-items-center rounded-full text-sm font-semibold ${x.done ? "bg-credit/15 text-credit" : "bg-primary/12 text-primary"}`}>
+                    {x.done ? <Check className="size-4" /> : i + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium text-foreground">{x.title}</div>
+                    <div className="text-xs text-muted-foreground">{x.body}</div>
+                  </div>
+                </div>
+                {!x.done && (
+                  <Btn asChild variant="soft" size="sm" className="self-start">
+                    <Link to={x.to} data-ai-id={`admin-setup-step-${i + 1}-link`}>
+                      {x.cta} <ArrowUpRight />
+                    </Link>
+                  </Btn>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </GlassCard>
+      )}
+
+      <div className="mt-8 mb-3 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-foreground">Sectors</h2>
+        <Link to="/admin/sectors" data-ai-id="admin-manage-sectors-link" className="text-xs text-primary hover:underline">
+          Manage sectors →
+        </Link>
+      </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 w-full">
+        {stats.perSector.map(({ sector, t, active }, i) => (
+          <Link
+            key={sector.slug}
+            to="/m/$sectorSlug"
+            params={{ sectorSlug: sector.slug }}
+            onClick={() => {
+              const st = useKhazna.getState();
+              st.setManagerSector(sector.slug);
+              st.setCurrentRole("manager");
+            }}
+            data-ai-id={`admin-sector-tile-${sector.slug}`}
+            className="block w-full"
+          >
+            <SectorTile sector={sector} value={t.balance} delay={0.05 * i} className="w-full">
+              <div className="flex justify-between num">
+                <span className="text-credit">+{formatCompactINR(t.credit)}</span>
+                <span className="text-debit">−{formatCompactINR(t.debit)}</span>
+              </div>
+              <div className="mt-1.5">{active} students · {t.count} entries</div>
+            </SectorTile>
+          </Link>
+        ))}
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3 w-full">
+        <GlassCard className="p-4 sm:p-6 w-full">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-foreground">Term collection</h3>
+            <Chip tone="info">Term 2</Chip>
+          </div>
+          <div className="mt-6 flex justify-center">
+            <ProgressRing value={progress} size={176} stroke={14}>
+              <div>
+                <div className="font-display text-3xl font-semibold text-foreground num">{Math.round(progress * 100)}%</div>
+                <div className="text-[11px] uppercase tracking-wider text-muted-foreground">of target</div>
+              </div>
+            </ProgressRing>
+          </div>
+          <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
+            <div className="glass-inset p-3">
+              <div className="text-[11px] text-muted-foreground">Collected</div>
+              <div className="font-semibold text-credit num">{formatCompactINR(stats.all.credit)}</div>
+            </div>
+            <div className="glass-inset p-3">
+              <div className="text-[11px] text-muted-foreground">Target</div>
+              <div className="font-semibold text-foreground num">{formatCompactINR(stats.target)}</div>
+            </div>
+          </div>
+          <div className="mt-5 space-y-2.5">
+            {stats.perSector.map(({ sector, t }) => {
+              const p = sector.target > 0 ? Math.min(1, t.credit / sector.target) : 0;
+              return (
+                <div key={sector.slug} style={tileVar(sector.color)}>
+                  <div className="mb-1 flex justify-between text-xs">
+                    <span className="text-muted-foreground">{sector.name}</span>
+                    <span className="text-foreground num">{Math.round(p * 100)}%</span>
+                  </div>
+                  <div className="h-1.5 overflow-hidden rounded-full bg-accent">
+                    <div className="h-full rounded-full bg-tile transition-[width] duration-300 ease-out" style={{ width: `${p * 100}%` }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </GlassCard>
+
+        <GlassCard className="p-4 sm:p-6 lg:col-span-2 w-full" transition={{ delay: 0.1 }}>
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-foreground">Recent activity</h3>
+            <Link to="/admin/audit" data-ai-id="admin-recent-audit-link" className="text-xs text-primary hover:underline">
+              View all
+            </Link>
+          </div>
+          <ul className="mt-4 divide-y divide-hairline">
+            {audit.slice(0, 8).map((a, i) => {
+              const Icon = AUDIT_ICON[a.action];
+              const tone = a.action.startsWith("VOID") ? "text-debit bg-debit/12" : a.action === "BULK_POST" || a.action === "CREATE_ENTRY" ? "text-credit bg-credit/12" : "text-info bg-info/12";
+              return (
+                <motion.li key={a.id} {...reveal(i)} className="flex items-center gap-3 py-3">
+                  <span className={`grid size-9 shrink-0 place-items-center rounded-xl ${tone}`}>
+                    <Icon className="size-4" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm text-foreground">
+                      <span className="font-medium">{a.actor}</span> <span className="text-muted-foreground">· {a.action.replace(/_/g, " ").toLowerCase()} ·</span> {a.target}
+                    </div>
+                    <div className="truncate text-xs text-muted-foreground">{a.details}</div>
+                  </div>
+                  <span className="hidden shrink-0 text-xs text-subtle sm:block">{timeAgo(a.at)}</span>
+                </motion.li>
+              );
+            })}
+          </ul>
+        </GlassCard>
+      </div>
+
+      {pendingInvite && (
+      <GlassCard className="mt-4 flex flex-col items-start justify-between gap-4 p-4 sm:p-5 sm:flex-row sm:items-center w-full" transition={{ delay: 0.2 }}>
+        <div className="flex items-center gap-3">
+          <Avatar name={pendingInvite.name} />
+          <div>
+            <div className="text-sm font-medium text-foreground">{pendingInvite.name} hasn't accepted the invite yet</div>
+            <div className="text-xs text-muted-foreground">
+              Invited to manage {sectorList.filter((x) => pendingInvite.sectors.includes(x.slug)).map((x) => x.name).join(" and ") || "no sectors yet"} · {formatINR(0)} handled so far
+            </div>
+          </div>
+        </div>
+        <Btn asChild variant="soft" size="sm">
+          <Link to="/admin/admins" data-ai-id="admin-review-admins-link">
+            Review admins <ArrowUpRight />
+          </Link>
+        </Btn>
+      </GlassCard>
+      )}
+    </div>
+  );
+}

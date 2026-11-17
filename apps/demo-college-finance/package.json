@@ -1,0 +1,10 @@
+{
+  "name": "@ai-assistant/demo-college-finance",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./server.ts",
+  "dependencies": {
+    "express": "^4.21.2",
+    "xlsx": "^0.18.5"
+  }
+}

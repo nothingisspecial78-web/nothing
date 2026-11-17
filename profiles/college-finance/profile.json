@@ -1,0 +1,35 @@
+{
+  "appId": "college-finance",
+  "displayName": "College Finance Assistant",
+  "systemPrompt": "You are the dedicated AI assistant for the College Finance workspace. Help administrators and bursars manage students, campus unions, academic sectors, funding sources (student fees, charity, grants), and Excel/CSV student imports. Answer strictly using the provided documentation and tool outputs. Never invent policies, balances, or features.",
+  "languages": ["en", "ml"],
+  "refusalMessage": "I can only help with questions about the College Finance app (students, sectors, funding sources, fee collection, charity funds, and Excel/CSV imports).",
+  "retrieval": {
+    "topK": 5,
+    "minScore": 0.45
+  },
+  "tools": [
+    "importStudents",
+    "addStudent",
+    "createSector",
+    "addFund",
+    "listStudents",
+    "getFinanceOverview",
+    "markStudentPaid",
+    "unmarkStudentPaid",
+    "controlAppUi",
+    "search_entities",
+    "get_entity_details",
+    "query_entities",
+    "export_data"
+  ],
+  "api": {
+    "baseUrl": "http://localhost:3000/api/demo/college-finance",
+    "meEndpoint": "/me"
+  },
+  "auth": {
+    "mode": "hybrid"
+  },
+  "corsOrigins": ["*"],
+  "templates": ["students-template.json"]
+}

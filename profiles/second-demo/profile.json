@@ -1,0 +1,37 @@
+{
+  "appId": "second-demo",
+  "displayName": "Campus Library Assistant",
+  "systemPrompt": "You are the dedicated AI assistant for the Campus Library Manager application. Help librarians manage book catalog entries, ISBNs, shelf locations, and student book loans/returns. Answer strictly from the Campus Library documentation and tool outputs.",
+  "languages": ["en", "ml"],
+  "refusalMessage": "I can only help with questions about the Campus Library Manager app (catalog, borrowing, returns, and overdue fines).",
+  "retrieval": {
+    "topK": 5,
+    "minScore": 0.53
+  },
+  "tools": ["listBooks", "listLoans", "addBook", "borrowBook", "returnBook", "controlAppUi", "search_entities", "get_entity_details", "query_entities", "export_data"],
+  "customTools": [
+    {
+      "name": "listBooks",
+      "description": "List books currently in the Campus Library catalog, optionally filtered by query.",
+      "risk": "read",
+      "method": "GET",
+      "path": "/books",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "description": "Optional search keyword for title, author, or ISBN",
+          "required": false
+        }
+      }
+    }
+  ],
+  "api": {
+    "baseUrl": "http://localhost:3000/api/demo/second-demo",
+    "meEndpoint": "/me"
+  },
+  "auth": {
+    "mode": "hybrid"
+  },
+  "corsOrigins": ["*"],
+  "templates": []
+}

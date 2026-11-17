@@ -1,0 +1,90 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "app": {
+      "root": ".",
+      "framework": "vite",
+      "buildCommand": "npm run build",
+      "outputDirectory": "dist"
+    },
+    "api": {
+      "root": ".",
+      "runtime": "node",
+      "entrypoint": "packages/server/src/vercel.ts",
+      "functions": {
+        "packages/server/src/vercel.ts": {
+          "includeFiles": "{profiles,data}/**",
+          "maxDuration": 30
+        }
+      },
+      "bindings": [
+        {
+          "type": "service",
+          "service": "demo-college-finance",
+          "format": "url",
+          "env": "DEMO_COLLEGE_FINANCE_URL"
+        },
+        {
+          "type": "service",
+          "service": "second-demo-app",
+          "format": "url",
+          "env": "SECOND_DEMO_APP_URL"
+        }
+      ]
+    },
+    "demo-college-finance": {
+      "root": "apps/demo-college-finance",
+      "runtime": "node",
+      "entrypoint": "server.ts"
+    },
+    "second-demo-app": {
+      "root": "apps/second-demo-app",
+      "runtime": "node",
+      "entrypoint": "server.ts"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/superadmin",
+      "destination": "/super-admin",
+      "permanent": false
+    },
+    {
+      "source": "/superadmin/login",
+      "destination": "/super-admin/login",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/demo/college-finance/(.*)",
+      "destination": {
+        "service": "demo-college-finance"
+      }
+    },
+    {
+      "source": "/api/demo/second-demo/(.*)",
+      "destination": {
+        "service": "second-demo-app"
+      }
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "api"
+      }
+    },
+    {
+      "source": "/health",
+      "destination": {
+        "service": "api"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "app"
+      }
+    }
+  ]
+}

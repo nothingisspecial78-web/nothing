@@ -1,0 +1,82 @@
+{
+  "timestamp": "2026-11-15T02:22:59.902Z",
+  "superAdmin": {
+    "email": "superadmin@khaznacampus.platform",
+    "role": "SUPER_ADMIN"
+  },
+  "organizations": [
+    {
+      "id": "demo",
+      "name": "Islahul Uloom Arabic College",
+      "adminName": "Abdulla K.",
+      "adminEmail": "principal@islahululoom.edu.in",
+      "demo": true
+    },
+    {
+      "id": "org-markaz",
+      "name": "Markaz Knowledge Campus",
+      "adminName": "Prof. Alavi Haji",
+      "adminEmail": "admin@markazcampus.org",
+      "demo": false
+    },
+    {
+      "id": "org-darulhuda",
+      "name": "Darul Huda Islamic University",
+      "adminName": "Dr. Bahauddeen",
+      "adminEmail": "vc@darulhuda.edu.in",
+      "demo": false
+    }
+  ],
+  "managers": [
+    {
+      "id": "mgr-df-1",
+      "email": "jaseel@islahululoom.edu.in",
+      "name": "Jaseel Faizy",
+      "sector": "dept-fiqh",
+      "organizationId": "demo"
+    },
+    {
+      "id": "mgr-dh-1",
+      "email": "hamza@islahululoom.edu.in",
+      "name": "Hamza Saqafi",
+      "sector": "dept-hadith",
+      "organizationId": "demo"
+    },
+    {
+      "id": "mgr-of-1",
+      "email": "office@islahululoom.edu.in",
+      "name": "Musthafa Office",
+      "sector": "office",
+      "organizationId": "demo"
+    },
+    {
+      "id": "mgr-mk-1",
+      "email": "tech@markazcampus.org",
+      "name": "Kareem Tech",
+      "sector": "sec-tech",
+      "organizationId": "org-markaz"
+    },
+    {
+      "id": "mgr-dh-univ-1",
+      "email": "shameer@darulhuda.edu.in",
+      "name": "Shameer Hudawi",
+      "sector": "dept-sharia",
+      "organizationId": "org-darulhuda"
+    }
+  ],
+  "studentCount": 1050,
+  "duplicateNameSamples": [
+    "Safwan K.",
+    "Rahul Sharma",
+    "Muhammed Ali",
+    "Bilal Ahmed"
+  ],
+  "similarSpellingSamples": [
+    "Nasim K. / Naseem K.",
+    "Muhammed Ali / Mohammed Ali"
+  ],
+  "overdueCount": 263,
+  "zeroPaymentCount": 150,
+  "transactionCount": 2450,
+  "fundCount": 12
+}

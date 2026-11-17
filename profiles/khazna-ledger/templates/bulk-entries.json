@@ -1,0 +1,73 @@
+{
+  "templateId": "khazna-bulk-entries",
+  "name": "Khazna Bulk Ledger Entries Import",
+  "description": "Bulk post credit or debit ledger entries for students in a sector",
+  "targetTool": "khaznaImportBulkEntries",
+  "columns": [
+    {
+      "key": "studentId",
+      "label": "Ad.No",
+      "aliases": ["id", "adno", "ad.no", "admissionNo", "admission_no", "studentId", "student id", "അഡ്മിഷൻ നമ്പർ"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 24
+    },
+    {
+      "key": "title",
+      "label": "Title",
+      "aliases": ["description", "fee", "feeTitle", "purpose", "particulars", "വിവരണം", "ഫീസ്"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 140
+    },
+    {
+      "key": "amount",
+      "label": "Amount",
+      "aliases": ["feeAmount", "value", "inr", "total", "തുക"],
+      "type": "number",
+      "required": true,
+      "min": 1
+    },
+    {
+      "key": "type",
+      "label": "Type",
+      "aliases": ["entryType", "txType", "kind", "തരം"],
+      "type": "enum",
+      "enumValues": ["credit", "debit"],
+      "required": false
+    },
+    {
+      "key": "sector",
+      "label": "Sector",
+      "aliases": ["sectorSlug", "department", "wing", "സെക്ടർ"],
+      "type": "string",
+      "required": false,
+      "maxLength": 80
+    },
+    {
+      "key": "date",
+      "label": "Date",
+      "aliases": ["entryDate", "txDate", "തീയതി"],
+      "type": "date",
+      "required": false
+    },
+    {
+      "key": "receiptNo",
+      "label": "Receipt No",
+      "aliases": ["receipt", "receipt_no", "voucher", "രസീത്"],
+      "type": "string",
+      "required": false,
+      "maxLength": 40
+    },
+    {
+      "key": "reason",
+      "label": "Reason",
+      "aliases": ["note", "notes", "remarks", "കാരണം"],
+      "type": "string",
+      "required": false,
+      "maxLength": 200
+    }
+  ]
+}

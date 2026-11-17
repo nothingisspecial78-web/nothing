@@ -1,0 +1,8 @@
+{
+  "name": "Embeddable AI Assistant & Demo Apps",
+  "description": "Multi-tenant embeddable AI assistant with profile-isolated RAG, screenshot analysis, Excel/CSV import preview, and confirmation-gated agent tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

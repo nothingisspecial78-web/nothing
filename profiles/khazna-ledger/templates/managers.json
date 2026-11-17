@@ -1,0 +1,40 @@
+{
+  "templateId": "khazna-managers",
+  "name": "Khazna Sector Managers Import",
+  "description": "Bulk invite or import sector managers into Khazna Campus Ledger",
+  "targetTool": "khaznaImportManagers",
+  "columns": [
+    {
+      "key": "name",
+      "label": "Full Name",
+      "aliases": ["managerName", "manager", "fullName", "name", "പേര്", "മാനേജർ"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 120
+    },
+    {
+      "key": "email",
+      "label": "Email",
+      "aliases": ["emailAddress", "email_address", "mail", "ഇമെയിൽ"],
+      "type": "email",
+      "required": true
+    },
+    {
+      "key": "phone",
+      "label": "Phone",
+      "aliases": ["mobile", "contact", "phoneNumber", "ഫോൺ"],
+      "type": "string",
+      "required": false,
+      "maxLength": 20
+    },
+    {
+      "key": "sectors",
+      "label": "Sectors",
+      "aliases": ["sector", "assignedSectors", "department", "സെക്ടർ", "വിഭാഗം"],
+      "type": "string",
+      "required": false,
+      "maxLength": 200
+    }
+  ]
+}

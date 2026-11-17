@@ -1,0 +1,101 @@
+{
+  "organizations": [
+    {
+      "id": "demo",
+      "name": "Islahul Uloom Arabic College",
+      "adminName": "Abdulla K.",
+      "adminEmail": "principal@islahululoom.edu.in",
+      "demo": true
+    },
+    {
+      "id": "org-markaz",
+      "name": "Markaz Knowledge Campus",
+      "adminName": "Prof. Alavi Haji",
+      "adminEmail": "admin@markazcampus.org",
+      "demo": false
+    },
+    {
+      "id": "org-darulhuda",
+      "name": "Darul Huda University",
+      "adminName": "Dr. Bahauddeen",
+      "adminEmail": "vc@darulhuda.edu.in",
+      "demo": false
+    }
+  ],
+  "users": [
+    {
+      "id": "sa-platform-01",
+      "email": "superadmin@khaznacampus.platform",
+      "name": "Platform Super Admin",
+      "role": "SUPER_ADMIN",
+      "organizationId": null
+    },
+    {
+      "id": "admin-islahul",
+      "email": "principal@islahululoom.edu.in",
+      "name": "Abdulla K.",
+      "role": "ADMIN",
+      "organizationId": "demo"
+    },
+    {
+      "id": "mgr-islahul-fiqh",
+      "email": "fiqh.manager@islahululoom.edu.in",
+      "name": "Umar Moulavi",
+      "role": "SECTOR_MANAGER",
+      "organizationId": "demo",
+      "sectorIds": [
+        "dept-fiqh"
+      ]
+    },
+    {
+      "id": "stu-islahul-safwan",
+      "email": "safwan@campus.edu",
+      "name": "Safwan K.",
+      "role": "STUDENT",
+      "organizationId": "demo",
+      "studentId": "S0125"
+    },
+    {
+      "id": "admin-markaz",
+      "email": "admin@markazcampus.org",
+      "name": "Prof. Alavi Haji",
+      "role": "ADMIN",
+      "organizationId": "org-markaz"
+    },
+    {
+      "id": "mgr-markaz-science",
+      "email": "science@markazcampus.org",
+      "name": "Dr. Rasheed K.",
+      "role": "SECTOR_MANAGER",
+      "organizationId": "org-markaz",
+      "sectorIds": [
+        "dept-sci"
+      ]
+    },
+    {
+      "id": "stu-markaz-rahim",
+      "email": "rahim@markazcampus.org",
+      "name": "Abdul Rahim",
+      "role": "STUDENT",
+      "organizationId": "org-markaz",
+      "studentId": "MK-1001"
+    },
+    {
+      "id": "admin-darulhuda",
+      "email": "vc@darulhuda.edu.in",
+      "name": "Dr. Bahauddeen",
+      "role": "ADMIN",
+      "organizationId": "org-darulhuda"
+    },
+    {
+      "id": "mgr-darulhuda-arts",
+      "email": "arts@darulhuda.edu.in",
+      "name": "Prof. Zubair",
+      "role": "SECTOR_MANAGER",
+      "organizationId": "org-darulhuda",
+      "sectorIds": [
+        "dept-arts"
+      ]
+    }
+  ]
+}

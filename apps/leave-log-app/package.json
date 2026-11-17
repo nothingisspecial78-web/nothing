@@ -1,0 +1,9 @@
+{
+  "name": "leave-log-app",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.ts",
+  "scripts": {
+    "start": "tsx server.ts"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "templateId": "students-template",
+  "name": "Student Enrollment & Fee Ledger Import",
+  "description": "Import student records with union, sector, and funding source assignment.",
+  "targetTool": "importStudents",
+  "columns": [
+    {
+      "key": "admissionNo",
+      "label": "Admission No",
+      "aliases": ["admission_no", "adm_no", "student_id", "id", "roll_no", "reg_no"],
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 24,
+      "pattern": "^[A-Za-z0-9-]+$"
+    },
+    {
+      "key": "fullName",
+      "label": "Full Name",
+      "aliases": ["name", "student_name", "full_name", "student"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 100
+    },
+    {
+      "key": "email",
+      "label": "Email",
+      "aliases": ["email_address", "mail", "student_email"],
+      "type": "email",
+      "required": true
+    },
+    {
+      "key": "sectorCode",
+      "label": "Sector Code",
+      "aliases": ["sector", "sector_code", "department", "dept"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 20
+    },
+    {
+      "key": "unionName",
+      "label": "Union Name",
+      "aliases": ["union", "union_name", "student_union"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 60
+    },
+    {
+      "key": "fundingOption",
+      "label": "Funding Option",
+      "aliases": ["funding", "funding_source", "funding_option", "fund_type", "source"],
+      "type": "enum",
+      "required": true,
+      "enumValues": ["Student Fees", "Charity", "Government Grant", "Endowment"]
+    },
+    {
+      "key": "feeAmount",
+      "label": "Fee Amount",
+      "aliases": ["fee", "amount", "fee_amount", "tuition", "tuition_fee"],
+      "type": "number",
+      "required": true,
+      "min": 0,
+      "max": 500000
+    }
+  ]
+}

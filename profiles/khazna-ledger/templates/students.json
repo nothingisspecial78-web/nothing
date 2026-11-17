@@ -1,0 +1,51 @@
+{
+  "templateId": "khazna-students",
+  "name": "Khazna Student Roster Import",
+  "description": "Import student admission records into Khazna Campus Ledger",
+  "targetTool": "khaznaImportStudents",
+  "columns": [
+    {
+      "key": "id",
+      "label": "Ad.No",
+      "aliases": ["adno", "ad.no", "admissionNo", "admission_no", "admission no", "studentId", "rollNo", "അഡ്മിഷൻ നമ്പർ", "നമ്പർ"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 24
+    },
+    {
+      "key": "name",
+      "label": "Full Name",
+      "aliases": ["fullName", "studentName", "student name", "name", "പേര്", "വിദ്യാർത്ഥിയുടെ പേര്"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 120
+    },
+    {
+      "key": "className",
+      "label": "Class",
+      "aliases": ["class", "batch", "division", "dept", "department", "ക്ലാസ്"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 60
+    },
+    {
+      "key": "phone",
+      "label": "Phone",
+      "aliases": ["mobile", "contact", "phoneNumber", "phone_number", "ഫോൺ", "മൊബൈൽ"],
+      "type": "string",
+      "required": false,
+      "maxLength": 20
+    },
+    {
+      "key": "guardian",
+      "label": "Guardian",
+      "aliases": ["parent", "parentName", "guardianName", "father", "രക്ഷിതാവ്"],
+      "type": "string",
+      "required": false,
+      "maxLength": 120
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@ai-assistant/second-demo-app",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./server.ts",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

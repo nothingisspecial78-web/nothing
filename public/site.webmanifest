@@ -1,0 +1,20 @@
+{
+  "name": "Khazna — Islahul Uloom Finance Portal",
+  "short_name": "Khazna",
+  "start_url": "/login",
+  "display": "standalone",
+  "background_color": "#F7F5F2",
+  "theme_color": "#F7F5F2",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

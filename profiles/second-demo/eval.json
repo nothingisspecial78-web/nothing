@@ -1,0 +1,23 @@
+{
+  "appId": "second-demo",
+  "cases": [
+    {
+      "id": "lib-01",
+      "question": "How long can undergraduate students borrow a book?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["14 days", "undergraduate"]
+    },
+    {
+      "id": "lib-02",
+      "question": "How do I add a new book to the library catalog?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Add Book", "ISBN", "Shelf"]
+    },
+    {
+      "id": "lib-03",
+      "question": "How do I import students into College Finance?",
+      "expectedScope": "out-of-scope",
+      "expectedKeywords": []
+    }
+  ]
+}

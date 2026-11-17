@@ -1,0 +1,95 @@
+{
+  "appId": "college-finance",
+  "cases": [
+    {
+      "id": "cf-01",
+      "question": "How do I select a funding option?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Funds", "Student Fees", "Charity"]
+    },
+    {
+      "id": "cf-02",
+      "question": "How do I import students from Excel?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Import", "Confirm", "template"]
+    },
+    {
+      "id": "cf-03",
+      "question": "How do I create a sector?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Sectors", "Sector Code", "Create Sector"]
+    },
+    {
+      "id": "cf-04",
+      "question": "What columns are required in the student import template?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Admission No", "Full Name", "Fee Amount"]
+    },
+    {
+      "id": "cf-05",
+      "question": "Can I undo a student import after confirming?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Undo", "roll back"]
+    },
+    {
+      "id": "cf-06",
+      "question": "How are union dues allocated from student fees?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["5%", "Union", "Student Fees"]
+    },
+    {
+      "id": "cf-07",
+      "question": "Why did my spreadsheet fail with Invalid Funding Option?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Charity", "Government Grant", "Endowment"]
+    },
+    {
+      "id": "cf-08",
+      "question": "What is the maximum file size and row limit for Excel uploads?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["5 MB", "5,000"]
+    },
+    {
+      "id": "cf-09",
+      "question": "How do charity funds differ from student fees?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Donor", "Charity", "Audit"]
+    },
+    {
+      "id": "cf-10",
+      "question": "ഫണ്ടിംഗ് ഓപ്ഷൻ എങ്ങനെ തിരഞ്ഞെടുക്കാം?",
+      "expectedScope": "in-scope",
+      "expectedKeywords": ["Funds", "Student Fees"]
+    },
+    {
+      "id": "cf-oos-01",
+      "question": "Who won the football match last night?",
+      "expectedScope": "out-of-scope",
+      "expectedKeywords": []
+    },
+    {
+      "id": "cf-oos-02",
+      "question": "Write a Python script for quicksort.",
+      "expectedScope": "out-of-scope",
+      "expectedKeywords": []
+    },
+    {
+      "id": "cf-oos-03",
+      "question": "What is the current weather in Tokyo?",
+      "expectedScope": "out-of-scope",
+      "expectedKeywords": []
+    },
+    {
+      "id": "cf-oos-04",
+      "question": "Give me a recipe for spicy chicken pasta.",
+      "expectedScope": "out-of-scope",
+      "expectedKeywords": []
+    },
+    {
+      "id": "cf-oos-05",
+      "question": "What is the price of Bitcoin today?",
+      "expectedScope": "out-of-scope",
+      "expectedKeywords": []
+    }
+  ]
+}

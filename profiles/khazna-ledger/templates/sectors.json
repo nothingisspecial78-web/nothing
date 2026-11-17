@@ -1,0 +1,49 @@
+{
+  "templateId": "khazna-sectors",
+  "name": "Khazna Sectors Import",
+  "description": "Bulk create or import organizational sectors into Khazna Campus Ledger (Admin only)",
+  "targetTool": "khaznaImportSectors",
+  "columns": [
+    {
+      "key": "name",
+      "label": "Sector Name",
+      "aliases": ["sector", "sectorName", "sector_name", "department", "wing", "division", "സെക്ടർ", "വിഭാഗം", "പേര്"],
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 100
+    },
+    {
+      "key": "receiptPrefix",
+      "label": "Receipt Prefix",
+      "aliases": ["prefix", "code", "receipt_prefix", "shortCode", "കോഡ്"],
+      "type": "string",
+      "required": false,
+      "maxLength": 12
+    },
+    {
+      "key": "target",
+      "label": "Target",
+      "aliases": ["targetAmount", "goal", "budget", "collectionTarget", "ലക്ഷ്യം", "തുക"],
+      "type": "number",
+      "required": false,
+      "min": 0
+    },
+    {
+      "key": "description",
+      "label": "Description",
+      "aliases": ["desc", "details", "note", "notes", "വിവരണം"],
+      "type": "string",
+      "required": false,
+      "maxLength": 240
+    },
+    {
+      "key": "color",
+      "label": "Color",
+      "aliases": ["themeColor", "colour", "badgeColor", "നിറം"],
+      "type": "string",
+      "required": false,
+      "maxLength": 30
+    }
+  ]
+}
